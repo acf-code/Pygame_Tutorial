@@ -207,8 +207,3 @@ while isRunning == True:
     pygame.display.update()
 
 pygame.quit()
-
-#Homework:
-#Can you make the player take damage if it is hit by the enemy rect
-#Challenge:
-#Can you make images for the enemy as well
