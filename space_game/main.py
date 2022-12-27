@@ -28,8 +28,8 @@ x_change = 0
 y_change = 0
 projectiles = []
 p_speed = 7
-background=pygame.image.load("background.png")
-gameover=pygame.image.load("gameover.png")
+background=pygame.image.load("images/space_game/background.png")
+gameover=pygame.image.load("images/space_game/gameover.png")
 
 #class is like a blueprint
 #ex. class Name:
@@ -156,7 +156,7 @@ class Enemy:
 bob = Enemy([250, 250], 3, [50, 50], (0, 0, 255))
 joe = Enemy([0, 0], 5, [70, 70], (255, 0, 255))
 enemies = [bob, joe]
-player = Player([r_x, r_y], 100, 3, "spaceship.png")
+player = Player([r_x, r_y], 100, 3, "images/space_game/spaceship.png")
 waves=3
 #game loop(updates each frame of the game)
 while isRunning == True:
