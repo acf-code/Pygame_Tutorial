@@ -50,7 +50,7 @@ class Player:
         if self.pos[1] >= 436:
             self.pos[1] = 436
             self.vel[1] = 0
-        time = pygame.time.Clock().get_rawtime()
+        time = pygame.time.Clock().get_fps()
         print(time)
         self.vel = self.vel + self.acc*time
         self.pos = self.pos + self.vel*time + (0.5)*self.acc*(time**2)
