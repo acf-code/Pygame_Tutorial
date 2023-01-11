@@ -3,6 +3,8 @@ from pygame.math import Vector2
 from random import randint
 import tools
 
+pygame.mixer.init()
+
 
 class Player:
 
@@ -23,22 +25,23 @@ class Player:
         self.time = 0
         self.start_frame = 0
         self.fps = tools.fps
+        self.shot_sound = pygame.mixer.Sound("space_game/sounds/laser.wav")
 
     def move(self, events):
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
                     self.acc[0] = self.max_acc
-                    self.time,self.start_frame = tools.increase_time(self.time,self.start_frame,self.fps)
+                    
                 if event.key == pygame.K_LEFT:
                     self.acc[0] = -self.max_acc
-                    self.time,self.start_frame = tools.increase_time(self.time,self.start_frame,self.fps)
+                    
                 if event.key == pygame.K_UP:
                     self.acc[1] = -self.max_acc
-                    self.time,self.start_frame = tools.increase_time(self.time,self.start_frame,self.fps)
+                    
                 if event.key == pygame.K_DOWN:
                     self.acc[1] = self.max_acc
-                    self.time,self.start_frame = tools.increase_time(self.time,self.start_frame,self.fps)
+                    
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
                     self.acc[0] = 0
