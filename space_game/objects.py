@@ -6,11 +6,12 @@ import tools
 
 class Player:
 
-    def __init__(self, pos, health, speed, image):
+    def __init__(self, pos, health, max_acc, image):
         self.pos = Vector2(pos)
         self.health = health
         self.max_health = health
-        self.speed = speed
+        self.max_acc = max_acc
+        self.max_speed = 3
         self.image_raw = pygame.image.load(image)
         self.image = pygame.transform.scale(self.image_raw, [64, 64])
         self.rect = self.image.get_bounding_rect()
@@ -23,21 +24,20 @@ class Player:
         self.start_frame = 0
         self.fps = tools.fps
 
-
     def move(self, events):
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
-                    self.acc[0] = self.speed
+                    self.acc[0] = self.max_acc
                     self.time,self.start_frame = tools.increase_time(self.time,self.start_frame,self.fps)
                 if event.key == pygame.K_LEFT:
-                    self.acc[0] = -self.speed
+                    self.acc[0] = -self.max_acc
                     self.time,self.start_frame = tools.increase_time(self.time,self.start_frame,self.fps)
                 if event.key == pygame.K_UP:
-                    self.acc[1] = -self.speed
+                    self.acc[1] = -self.max_acc
                     self.time,self.start_frame = tools.increase_time(self.time,self.start_frame,self.fps)
                 if event.key == pygame.K_DOWN:
-                    self.acc[1] = self.speed
+                    self.acc[1] = self.max_acc
                     self.time,self.start_frame = tools.increase_time(self.time,self.start_frame,self.fps)
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
@@ -49,8 +49,10 @@ class Player:
                     self.acc[0] = 0
                     self.time = 0
                     self.start_frame = 0
-        if self.acc.magnitude() > self.speed:
-            self.acc.scale_to_length(self.speed)
+        if self.acc.magnitude() > self.max_acc:
+            self.acc.scale_to_length(self.max_acc)
+        if self.vel.magnitude() > self.max_speed:
+            self.vel.scale_to_length(self.max_speed)
         if self.pos[0] <= 0:
             self.pos[0] = 0
             self.vel[0] = 0
@@ -63,8 +65,8 @@ class Player:
         if self.pos[1] >= 436:
             self.pos[1] = 436
             self.vel[1] = 0
-        self.vel = self.vel + self.acc*self.time
-        self.pos = self.pos + self.vel*self.time + (0.5)*self.acc*(self.time**2)
+        self.vel = self.vel + self.acc
+        self.pos = self.pos + self.vel + (0.5)*self.acc
         
         
 

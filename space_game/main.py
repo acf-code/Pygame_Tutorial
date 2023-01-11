@@ -47,8 +47,6 @@ while isRunning == True:
             if event.key == pygame.K_SPACE:
                 projectiles.append(
                     pygame.Rect([player.pos[0] + 5, player.pos[1]], [10, 10]))
-    #cannonTip.topleft = [rect_pos[0] - 2.5, rect_pos[1]]
-    #target.topleft = [t_x, t_y]
     if player.health<=0:
         for i in range(fps*5):
             screen.blit(gameover,[0,0])
@@ -57,7 +55,6 @@ while isRunning == True:
         pygame.quit()
     screen.blit(background,[0,0])
     player.update(events,screen)
-    #pygame.draw.rect(screen, red, target)
     if len(enemies) > 0:
         for enemy in enemies:
             enemy.update(screen)
