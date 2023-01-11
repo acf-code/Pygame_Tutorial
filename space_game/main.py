@@ -11,6 +11,8 @@ screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 fps = tools.fps
 
+
+
 isRunning = True
 #rectanglename = pygame.Rect(x,y,width,height)
 r_x = 225
@@ -79,6 +81,8 @@ while isRunning == True:
             projectile.y -= p_speed
             if projectile.y < 0:
                 projectiles.remove(projectile)
+    
+    
     clock.tick(fps)
     pygame.display.update()
 

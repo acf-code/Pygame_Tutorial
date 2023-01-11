@@ -19,23 +19,36 @@ class Player:
         self.vel = Vector2(0)
         self.acc = Vector2(0)
         self.invincibility = 60
+        self.time = 0
+        self.start_frame = 0
+        self.fps = tools.fps
+
 
     def move(self, events):
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
                     self.acc[0] = self.speed
+                    self.time,self.start_frame = tools.increase_time(self.time,self.start_frame,self.fps)
                 if event.key == pygame.K_LEFT:
                     self.acc[0] = -self.speed
+                    self.time,self.start_frame = tools.increase_time(self.time,self.start_frame,self.fps)
                 if event.key == pygame.K_UP:
                     self.acc[1] = -self.speed
+                    self.time,self.start_frame = tools.increase_time(self.time,self.start_frame,self.fps)
                 if event.key == pygame.K_DOWN:
                     self.acc[1] = self.speed
+                    self.time,self.start_frame = tools.increase_time(self.time,self.start_frame,self.fps)
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
                     self.acc[0] = 0
+                    self.time = 0
+                    self.start_frame = 0
                 if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                     self.acc[1] = 0
+                    self.acc[0] = 0
+                    self.time = 0
+                    self.start_frame = 0
         if self.acc.magnitude() > self.speed:
             self.acc.scale_to_length(self.speed)
         if self.pos[0] <= 0:
@@ -50,10 +63,8 @@ class Player:
         if self.pos[1] >= 436:
             self.pos[1] = 436
             self.vel[1] = 0
-        time = pygame.time.Clock().get_fps()
-        print(time)
-        self.vel = self.vel + self.acc*time
-        self.pos = self.pos + self.vel*time + (0.5)*self.acc*(time**2)
+        self.vel = self.vel + self.acc*self.time
+        self.pos = self.pos + self.vel*self.time + (0.5)*self.acc*(self.time**2)
         
         
 
