@@ -14,6 +14,7 @@ def gameloop():
 
     start_text = tools.font.render('Start', True, tools.white)
     start_rect = start_text.get_rect()
+    start_rect.width = 100
     start_rect.center = [size[0]/2,size[1]/2]
 
     exit_text = tools.font.render('Exit', True, tools.white)
