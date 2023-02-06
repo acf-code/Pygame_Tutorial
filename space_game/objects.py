@@ -52,8 +52,8 @@ class Player:
                     self.acc[0] = 0
                     self.time = 0
                     self.start_frame = 0
-        if self.acc.magnitude() > self.max_acc:
-            self.acc.scale_to_length(self.max_acc)
+        #if self.acc.magnitude() > self.max_acc:
+            #self.acc.scale_to_length(self.max_acc)
         if self.vel.magnitude() > self.max_speed:
             self.vel.scale_to_length(self.max_speed)
         if self.pos[0] <= 0:

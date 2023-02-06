@@ -76,7 +76,6 @@ def gameloop():
                 random_color=(randint(0,255),randint(0,255),randint(0,255))
                 enemies.append(objects.Enemy([randint(0,400), randint(0,400)], 3, [randint(50,100), randint(50,100)], random_color))
             waves+=1
-        #print(player.pos)
         if len(projectiles) > 0:
             for projectile in projectiles:
                 pygame.draw.rect(screen, tools.orange, projectile)
