@@ -74,7 +74,7 @@ class Player:
         
 
     def render(self,screen):
-        screen.blit(self.image, self.pos)
+        screen.blit(self.image, self.rect)
         self.rect.center = [self.pos[0] + 32, self.pos[1] + 32]
         pygame.draw.rect(screen,tools.red,self.damage_rect)
         pygame.draw.rect(screen,tools.green,self.health_rect)
@@ -144,3 +144,5 @@ class Enemy:
     def damage(self):
         self.health -= 1
         self.hit_timer = 0
+
+

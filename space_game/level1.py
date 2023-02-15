@@ -19,6 +19,8 @@ def gameloop():
 
 
 
+
+
     isRunning = True
     r_x = 225
     r_y = 200
@@ -27,6 +29,8 @@ def gameloop():
     projectiles = []
     p_speed = 7
     background=pygame.image.load("space_game/images/background.png")
+    background_rect = background.get_rect()
+    print(background_rect)
     gameover=pygame.image.load("space_game/images/gameover.png")
 
 
@@ -56,7 +60,7 @@ def gameloop():
             isRunning = False
             pygame.quit()
         score = tools.score_font.render("Score: " + str(score_number),True, tools.white)
-        screen.blit(background,[0,0])
+        screen.blit(background,pygame.Rect(0,0,250,250))
         player.update(events,screen)
         
         if len(enemies) > 0:
