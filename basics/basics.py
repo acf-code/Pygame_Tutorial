@@ -22,6 +22,9 @@ pygame.display.set_caption("First Game")
 
 
 
+#to create an object follow this syntax
+#object_name = Class_name(paramters)
+
 #game loop(updates each frame of the game)
 while isRunning == True:
     events = pygame.event.get()
