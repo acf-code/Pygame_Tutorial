@@ -28,7 +28,17 @@ class Player:
         self.shot_sound = pygame.mixer.Sound("space_game/sounds/laser.wav")
 
     def move(self, events):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_a]:
+            self.acc[0] = -self.max_acc
+        if keys[pygame.K_d]:
+            self.acc[0] = self.max_acc
+        if keys[pygame.K_w]:
+            self.acc[1] = -self.max_acc
+        if keys[pygame.K_s]:
+            self.acc[1] = self.max_acc
         for event in events:
+            """
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
                     self.acc[0] = self.max_acc
@@ -41,7 +51,7 @@ class Player:
                     
                 if event.key == pygame.K_DOWN:
                     self.acc[1] = self.max_acc
-                    
+            """
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
                     self.acc[0] = 0

@@ -60,7 +60,7 @@ def gameloop():
             isRunning = False
             pygame.quit()
         score = tools.score_font.render("Score: " + str(score_number),True, tools.white)
-        screen.blit(background,pygame.Rect(0,0,250,250))
+        screen.blit(background,[0,0])
         player.update(events,screen)
         
         if len(enemies) > 0:
