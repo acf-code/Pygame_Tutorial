@@ -19,6 +19,7 @@ for i in range(8):
         pos = [240, i * 70]
     roads.append(classes.Road(pos))
 
+obstacles = [classes.Obstacle([100,0],3,[64,64],"car_game/trash_can.png"),classes.Obstacle([100,0],3,[64,64],"car_game/junk.png")]
 isRunning = True
 while isRunning:
     events = pygame.event.get()
@@ -29,6 +30,8 @@ while isRunning:
     for road in roads:
         road.update(screen)
     car.update(screen)
+    for obstacle in obstacles:
+      obstacle.update(screen)
     pygame.display.flip()
     clock.tick(fps)
 

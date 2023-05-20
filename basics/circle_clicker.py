@@ -9,21 +9,16 @@ screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 fps = 30
 
-black = (0,0,0)
-white = (255,255,255)
-red = (255,0,0)
-
 font = pygame.font.SysFont(None, 24)
 
 isRunning = True
-circle_x = 200
-circle_y = 200
-color = (randint(0,225),randint(0,225),randint(0,225))
-points=0
+circle_x = 250
+circle_y = 250
+color = (0,0,0)
+points = 0
+#game loop(updates each frame of the game)
 while isRunning:
   mouse = pygame.mouse.get_pos()
-  #print(mouse)
-  #mouse[0] = x_pos and mouse[1] = y_pos
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       pygame.quit()
@@ -32,12 +27,12 @@ while isRunning:
       if mouse[0]>=circle_x-50 and mouse[0]<=circle_x+50:
         if mouse[1]>=circle_y-50 and mouse[1]<=circle_y+50:
           color = (randint(0,225),randint(0,225),randint(0,225))
-          points+=1
           circle_x = randint(0,500)
           circle_y = randint(0,500)
+          points+=1
   
-  text = font.render(str(points),False,black)
-  screen.fill(white)
+  text = font.render(str(points),False,(0,0,0))
+  screen.fill((255,255,255))
   screen.blit(text,[25,25])
   pygame.draw.circle(screen,color,[circle_x,circle_y],50)
   clock.tick(fps)

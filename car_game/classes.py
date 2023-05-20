@@ -1,4 +1,5 @@
 import pygame
+from random import randint
 
 
 class Car:
@@ -14,8 +15,8 @@ class Car:
         self.rect = self.image.get_bounding_rect()
 
     def render(self, screen):
+        self.pos = [self.pos_center[0] - 32, self.pos_center[1] - 32]
         screen.blit(self.image, self.pos)
-        self.pos_center = [self.pos[0] + 32, self.pos[1] + 32]
         self.rect.center = self.pos_center
 
     def move(self):
@@ -32,8 +33,8 @@ class Car:
         if self.pos_center[0] > 500:
             self.velocity[0] = -self.velocity[0]
 
-        self.pos[0] += self.velocity[0]
-        self.pos[1] += self.velocity[1]
+        self.pos_center[0] += self.velocity[0]
+        self.pos_center[1] += self.velocity[1]
 
     def update(self, screen):
         self.move()
@@ -61,3 +62,35 @@ class Road:
     def update(self, screen):
         self.move()
         self.render(screen)
+
+
+class Obstacle:
+
+    def __init__(self, pos, speed, size, image):
+        self.pos = pos
+        self.speed = randint(1, speed)
+        self.maxspeed = speed
+        self.width = size[0]
+        self.height = size[1]
+        self.pos_center = [self.pos[0] + (self.width / 2), self.pos[1] + (self.height / 2)]
+        self.image = pygame.image.load(image)
+        self.image = pygame.transform.scale(self.image,[self.width, self.height])
+        self.rect = self.image.get_bounding_rect()
+
+    def render(self, screen):
+        #screen.blit(self.image, [self.pos_center[0] + self.width / 2, self.pos[1] + self.height / 2])
+        self.pos = [self.pos_center[0] - self.width / 2, self.pos_center[1] - self.height / 2]
+        screen.blit(self.image,self.pos)
+        self.rect.center = self.pos_center
+        print(self.pos)
+
+    def move(self):
+        self.pos_center[1] += self.speed
+        if self.pos_center[1] > 500:
+            self.pos_center[1] = 0
+            self.speed = randint(1, self.maxspeed)
+            self.pos_center[0] = randint(0, 500)
+
+    def update(self, screen):
+        self.render(screen)
+        self.move()
