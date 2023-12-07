@@ -58,17 +58,7 @@ while True:
     for event in events:
         if event.type == pygame.QUIT:
             pygame.quit()
-        """
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                dx = speed
-            if event.key == pygame.K_LEFT:
-                dx = -speed
-            if event.key == pygame.K_UP:
-                dy = -speed
-            if event.key == pygame.K_DOWN:
-                dy = speed
-        """
+
         if event.type == pygame.KEYUP:
             velocity[0] = 0
             velocity[1] = 0
