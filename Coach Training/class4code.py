@@ -22,7 +22,7 @@ gravity = 10
 
 #adding platforms
 platforms = []
-for i in range(4):
+for i in range(10):
     platforms.append(pygame.Rect(randint(0,size[0]-150),randint(0,size[1]-30),150,30))
 
 #gameloop code
@@ -51,7 +51,7 @@ while True:
 
     
 
-    
+    dx = velocity[0]
     
 
    
@@ -60,13 +60,24 @@ while True:
         if p.colliderect(pygame.Rect(rect1.x,rect1.y + dy,rect1.w,rect1.h)):
             dy = p.top - rect1.bottom
             velocity[1] = 0
-        
+        elif p.colliderect(pygame.Rect(rect1.x + dx, rect1.y, rect1.w, rect1.h)) and dx < 0:
+            dx = p.right - rect1.left
+            velocity[0] = 0
+        elif p.colliderect(pygame.Rect(rect1.x + dx, rect1.y, rect1.w, rect1.h)) and dx > 0:
+            dx = p.left - rect1.right
+            velocity[0] = 0
         pygame.draw.rect(screen,[0,0,255],p)
 
-    dx = velocity[0]
+    
 
     rect1.centerx += dx
     rect1.centery += dy
     pygame.display.update()
     clock.tick(fps)
+
+
+#Ways To Improve
+#Add jumping to player
+#stop player from moving when key is let go
+#Have platforms spawn not colliding with eachother
 
