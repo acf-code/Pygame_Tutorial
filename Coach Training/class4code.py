@@ -31,7 +31,7 @@ while True:
     for event in events:
         if event.type == pygame.QUIT:
             pygame.quit()
-    tick = clock.get_time()/100
+    tick = clock.get_time()/1000
 
     velocity[1] += gravity*tick 
     
