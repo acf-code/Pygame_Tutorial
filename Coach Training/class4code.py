@@ -38,8 +38,10 @@ while True:
     keys = pygame.key.get_pressed()
     if keys[pygame.K_RIGHT]:
         velocity[0] = speed
-    if keys[pygame.K_LEFT]:
+    elif keys[pygame.K_LEFT]:
         velocity[0] = -speed
+    else:
+        velocity[0] = 0
     
     
     screen.fill([0,0,0])
@@ -59,6 +61,8 @@ while True:
     for p in platforms:
         if p.colliderect(pygame.Rect(rect1.x,rect1.y + dy,rect1.w,rect1.h)):
             dy = p.top - rect1.bottom
+            if dy < 0:
+                dy = 0
             velocity[1] = 0
         elif p.colliderect(pygame.Rect(rect1.x + dx, rect1.y, rect1.w, rect1.h)) and dx < 0:
             dx = p.right - rect1.left
