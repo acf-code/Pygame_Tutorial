@@ -63,8 +63,10 @@ while True:
     for p in platforms:
         #if the change in y will hit the platform, change dy to be the distance from the bottom of player and top of platform
         #change v_y to be zero
-        if p.colliderect(pygame.Rect(rect1.x,rect1.y + dy,rect1.w,rect1.h)):
+        if p.colliderect(pygame.Rect(rect1.x,rect1.y + dy,rect1.w,rect1.h)) and dy > 0:
             dy = p.top - rect1.bottom
+            if dy < 0:
+                dy = 0
             velocity[1] = 0
         #if the change in x will hit the platform and player is moving to the left, change dx to be the distance from the left of player and right of platform
         #change dx to be zero
@@ -76,6 +78,8 @@ while True:
         elif p.colliderect(pygame.Rect(rect1.x + dx, rect1.y, rect1.w, rect1.h)) and dx > 0:
             dx = p.left - rect1.right
             velocity[0] = 0
+            
+    for p in platforms:
         pygame.draw.rect(screen,[0,0,255],p)
 
     
