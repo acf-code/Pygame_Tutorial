@@ -60,12 +60,16 @@ class Dagger:
         self.image = pygame.transform.scale(self.image,[self.rect.w,self.rect.h])
 
     def render(self,screen,player,mPos):
-        self.rect.center = [self.x,self.y]
+        #finding angle between pos and mouse pos
         angle = math.atan2(mPos[1]-player.y,mPos[0]- player.x)*180/math.pi + 90
+        #rotating image based on the angle
         image_rot = pygame.transform.rotate(self.image,angle*-1)
+        #getting current rect that is covering the image
         image_rect = image_rot.get_rect()
+        #setting that rect center position to be equal to the dagger pos
         image_rect.center= [self.x,self.y]
         #pygame.draw.rect(screen,[0,0,255],image_rect)
+        #drawing the dagger on the screen using the image_rect
         screen.blit(image_rot,image_rect)
 
     def move(self,player,mPos):
