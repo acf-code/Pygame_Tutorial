@@ -44,8 +44,8 @@ class Player:
 
     def render(self,screen):
         self.rect.center = [self.x,self.y]
-        #pygame.draw.rect(screen,[255,0,0],self.rect)
-        pygame.draw.circle(screen,[255,0,0],[self.x,self.y],self.rect.w)
+        pygame.draw.rect(screen,[255,0,0],self.rect)
+        #pygame.draw.circle(screen,[255,0,0],[self.x,self.y],self.rect.w)
 
     def update(self,screen,keys):
         self.move(keys)
@@ -73,6 +73,7 @@ class Dagger:
         screen.blit(image_rot,image_rect)
 
     def move(self,player,mPos):
+        #setting the distance of dagger to player to be dist_from_player 
         dist_from_player = 100
         mPos = Vector2(mPos)
         pos = mPos - Vector2(player.x,player.y)
