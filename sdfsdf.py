@@ -1,19 +1,61 @@
-from random import randint
+import pygame
+import sys
+import math
 
-list_rand = []
-for i in range(10000):
-    list_rand.append(randint(-100,100))
+# Initialize Pygame
+pygame.init()
 
-print(list_rand)
+# Constants
+WIDTH, HEIGHT = 500, 500
+FPS = 60
 
-def quick_sort(li):
-    if len(li) <= 1:
-        return li
-    else:
-        pivot = li[0]
-        left = [x for x in li[1:] if x < pivot]
-        right = [x for x in li[1:] if x >= pivot]
-        return quick_sort(left) + [pivot] + quick_sort(right)
-    
-list_sort = quick_sort(list_rand)
-print(list_sort)
+# Colors
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+
+# Initialize the window
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Rotating Square")
+
+# Clock to control the frame rate
+clock = pygame.time.Clock()
+
+# Square properties
+center_x, center_y = WIDTH // 2, HEIGHT // 2
+large_square_size = 200
+small_square_size = 50
+angle = 0
+
+# Main game loop
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # Clear the screen
+    screen.fill(WHITE)
+
+    # Rotate the small square around the center of the large square
+    angle += -10  # You can adjust the rotation speed by changing this value
+    radian_angle = math.radians(angle)
+    small_square_x = center_x + int(math.cos(radian_angle) * (large_square_size / 2 - small_square_size / 2))
+    small_square_y = center_y - int(math.sin(radian_angle) * (large_square_size / 2 - small_square_size / 2))
+
+    # Draw the large square
+    pygame.draw.rect(screen, RED, (center_x - large_square_size // 2, center_y - large_square_size // 2,
+                                   large_square_size, large_square_size),width=2)
+
+    # Draw the rotating small square
+    pygame.draw.rect(screen, RED, (small_square_x - small_square_size // 2, small_square_y - small_square_size // 2,
+                                   small_square_size, small_square_size))
+
+    # Update the display
+    pygame.display.flip()
+
+    # Cap the frame rate
+    clock.tick(FPS)
+
+# Quit Pygame
+pygame.quit()
+sys.exit()
