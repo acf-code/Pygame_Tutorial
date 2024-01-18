@@ -101,7 +101,7 @@ class Dagger:
         self.move(player,mPos)
 
 player = Player(WIDTH/2,HEIGHT/2,36,36)
-dagger = Dagger(WIDTH/2,HEIGHT/2,16,32,"dagger.png")
+dagger = Dagger(WIDTH/2,HEIGHT/2,16,32,"pygameRotations/dagger.png")
 
 while True:
     mPos = pygame.mouse.get_pos()
