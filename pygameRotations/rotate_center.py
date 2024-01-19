@@ -37,7 +37,7 @@ class Player:
             self.angle -= self.angularspeed
         # Update direction vector based on the new angle
         self.direction = Vector2.from_polar([self.RECT_SIZE / 2, self.angle])
-        d = self.direction.normalize()
+        d = self.direction
         # Handle forward and backward movement based on user input
         if keys[pygame.K_UP] or keys[pygame.K_w]:
             vel[1] = d[1]
@@ -55,6 +55,10 @@ class Player:
             print(d)
             print(self.angle)
             old_angle = self.angle
+        if self.angle >= 360:
+            self.angle -= 360
+        if self.angle <= -360:
+            self.angle += 360
         # Update player position based on velocity
         self.x += vel[0]
         self.y += vel[1]
@@ -65,14 +69,14 @@ class Player:
         up = Vector2(0, -1)
         angleFromUp = up.angle_to(self.direction)
         # Rotate the player's image based on its direction
-        image_rot = pygame.transform.rotate(self.image, -angleFromUp)
-        image_rect = image_rot.get_rect(center=[self.x, self.y])
+        self.image = pygame.transform.rotate(self.image, -angleFromUp)
+        image_rect = self.image.get_rect(center=[self.x, self.y])
         # Draw the player's image and rectangle on the screen
         screen.fill(BLACK)
         pygame.draw.rect(screen, BLUE, image_rect)
         pygame.draw.rect(screen, GREEN, self.rect)
-        screen.blit(image_rot, image_rect)
-        # Draw a line indicating the player's direction
+        screen.blit(self.image, image_rect)
+        # Draw as line indicating the player's direction
         pygame.draw.line(screen, GREEN, [self.x, self.y], [self.x + self.direction[0], self.y + self.direction[1]])
 
     def update(self, screen, keys, dt):

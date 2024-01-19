@@ -16,7 +16,7 @@ class Player:
         self.rect = pygame.Rect(x, y, w, h)
         self.speed = 5
         self.projectiles = []
-        self.p_speed = 3
+        self.p_speed = 10
         self.p_image = pygame.image.load("pygameRotations/projectile.png")
         self.p_w = 5
         self.p_h = 15
@@ -100,7 +100,7 @@ class Projectile:
         image_rot = pygame.transform.rotate(self.image, -angle)
         image_rect = image_rot.get_bounding_rect()
         image_rect.center = [self.x, self.y]
-        pygame.draw.rect(screen, [0, 0, 255], image_rect)
+        #pygame.draw.rect(screen, [0, 0, 255], image_rect)
         screen.blit(image_rot, image_rect)
 
     def move(self):
