@@ -6,8 +6,8 @@ from pygame.math import Vector2,Vector3
 class Tools:
 
     SPAWN_Z = 2000
-    SCREEN_WIDTH = 1280
-    SCREEN_HEIGHT = 720
+    SCREEN_WIDTH = 800
+    SCREEN_HEIGHT = 640
 
     @staticmethod
     def projectTo(t_x,t_y,p_z = SPAWN_Z,screen_w = SCREEN_WIDTH, screen_h = SCREEN_HEIGHT):
