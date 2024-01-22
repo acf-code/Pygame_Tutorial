@@ -12,7 +12,7 @@ class Player:
     INITIAL_ANGLE = 270
     ANGULAR_SPEED = 3
     SPEED = 5
-    RECT_SIZE = 50
+    RECT_SIZE = 128
 
     def __init__(self, x, y):
         # Initialize player attributes
@@ -69,13 +69,13 @@ class Player:
         up = Vector2(0, -1)
         angleFromUp = up.angle_to(self.direction)
         # Rotate the player's image based on its direction
-        self.image = pygame.transform.rotate(self.image, -angleFromUp)
-        image_rect = self.image.get_rect(center=[self.x, self.y])
+        image_rot = pygame.transform.rotate(self.image, -angleFromUp)
+        image_rect = image_rot.get_rect(center=[self.x, self.y])
         # Draw the player's image and rectangle on the screen
         screen.fill(BLACK)
         pygame.draw.rect(screen, BLUE, image_rect)
         pygame.draw.rect(screen, GREEN, self.rect)
-        screen.blit(self.image, image_rect)
+        screen.blit(image_rot, image_rect)
         # Draw as line indicating the player's direction
         pygame.draw.line(screen, GREEN, [self.x, self.y], [self.x + self.direction[0], self.y + self.direction[1]])
 
