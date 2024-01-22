@@ -9,3 +9,4 @@
 Use Reference Code:- 
   - [Coach Izzy's Code](https://github.com/acf-code/Pygame_Tutorial/blob/main/Coach%20Training/Coach%20Individual%20Code/izzyPlatforming(bad).py)
   - [Coach Michael's Code](https://github.com/acf-code/Pygame_Tutorial/blob/main/Coach%20Training/Coach%20Individual%20Code/mrVPlatforming.py)
+- Class 7: [Pygame Rotation]()
