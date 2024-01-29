@@ -70,8 +70,8 @@ while True:
 
     
 
-    rect1.centerx += dx
-    rect1.centery += dy
+    rect1.centerx += int(dx)
+    rect1.centery += int(dy)
     pygame.display.update()
     clock.tick(fps)
 
