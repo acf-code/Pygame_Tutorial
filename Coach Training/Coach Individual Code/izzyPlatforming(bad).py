@@ -25,8 +25,9 @@ class PhysicObject:
         self.grounded = False
         self.jumpSpeed = jumpSpeed
         self.jumping = False
-    def move_x(self,speed,dt):
-        self.vel[0] = speed
+        self.friction = 0
+    def move_x(self,x_acc,dt):
+        self.vel[0] = x_acc
         self.dx = self.vel[0]
     def move_y(self,dt):
         self.vel[1] += PhysicObject.GRAVITY*dt
@@ -68,8 +69,8 @@ class PhysicObject:
             self.vel[1] = -self.jumpSpeed
             self.dy = self.vel[1]
 
-    def update(self,speed,dt,platforms):
-        self.move_x(speed,dt)
+    def update(self,x_acc,dt,platforms):
+        self.move_x(x_acc,dt)
         self.move_y(dt)
         self.platformCollision(platforms)
         self.groundCollision()
@@ -93,7 +94,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.physicObject.rect
         self.image = self.physicObject.surf
         self.image.fill(self.color)
-        self.speed = 3
+        self.x_acc = 3
 
     def getInput(self):
         self.state = "IDLE"
@@ -110,9 +111,9 @@ class Player(pygame.sprite.Sprite):
         if self.state == "IDLE":
             self.physicObject.update(0,dt,platforms)
         elif self.state == "LEFT":
-            self.physicObject.update(-self.speed,dt,platforms)
+            self.physicObject.update(-self.x_acc,dt,platforms)
         elif self.state == "RIGHT":
-            self.physicObject.update(self.speed,dt,platforms)
+            self.physicObject.update(self.x_acc,dt,platforms)
         
         
 
@@ -124,6 +125,7 @@ class Platform(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(topleft = (x,y))
         self.image = self.surf
         self.image.fill(self.color)
+        self.friction = 0.5
 
 
 
@@ -150,9 +152,4 @@ while True:
     pygame.display.update()
     clock.tick(fps)
 
-
-#Things to Add
-#Add jumping to player
-#stop player from moving when key is let go
-#Have platforms spawn not colliding with eachother
 
