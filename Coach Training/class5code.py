@@ -125,7 +125,8 @@ class Platform(pygame.sprite.Sprite):
 player = pygame.sprite.GroupSingle(Player(50,50,50,50))
 platforms = pygame.sprite.Group(Platform(0,450,500,50),Platform(100,350,400,20),Platform(200,250,200,20))
 
-
+oldtime = pygame.time.get_ticks()
+dt = 1000
 #gameloop code
 while True:
     time = clock.get_time()
@@ -134,7 +135,11 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
 
-
+    currentTime = pygame.time.get_ticks()
+    if currentTime - oldtime >= dt:
+        #do some code
+        print("hello")
+        oldtime = currentTime 
     screen.fill([0,0,0])
     player.draw(screen)
     platforms.draw(screen)
