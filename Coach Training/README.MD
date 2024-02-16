@@ -11,3 +11,4 @@ Use Reference Code:-
   - [Coach Michael's Code](https://github.com/acf-code/Pygame_Tutorial/blob/main/Coach%20Training/Coach%20Individual%20Code/mrVPlatforming.py)
 - Class 7: [Code](https://github.com/acf-code/Pygame_Tutorial/blob/main/pygameRotations/rotate_center.py)
 - Class 8: [Code](https://github.com/acf-code/Pygame_Tutorial/blob/main/Coach%20Training/class5code.py)
+- Class 9: [Code](https://github.com/acf-code/Pygame_Tutorial/tree/main/animations)
