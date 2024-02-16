@@ -74,7 +74,7 @@ class Dagger:
         # angle = math.acos(up.dot(pos)/(up.magnitude()*pos.magnitude()))*180/math.pi
         # if mPos[0] - player.x > 0:
         #     angle *= -1
-        print(angle)
+        #print(angle)
         #rotating image based on the angle
         image_rot = pygame.transform.rotate(self.image,-angle)
         #getting current rect that is covering the image
