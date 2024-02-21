@@ -12,3 +12,4 @@ Use Reference Code:-
 - Class 7: [Code](https://github.com/acf-code/Pygame_Tutorial/blob/main/pygameRotations/rotate_center.py)
 - Class 8: [Code](https://github.com/acf-code/Pygame_Tutorial/blob/main/Coach%20Training/class5code.py)
 - Class 9: [Code](https://github.com/acf-code/Pygame_Tutorial/tree/main/animations)
+- Class 10: [Working with Sprite Sheet](https://github.com/acf-code/Pygame_Tutorial/blob/main/animations/spritesheet.py) [Animations with Sprite Sheet](https://github.com/acf-code/Pygame_Tutorial/blob/main/animations/animationwithspritesheet.py)
