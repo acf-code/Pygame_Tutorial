@@ -8,7 +8,7 @@ class Enemy:
         self.w = w
         self.h = h
         self.image = pygame.image.load("followingAI/enemy.png").convert_alpha()
-        #self.image.set_colorkey([255,255,255])
+        self.image.set_colorkey([255,255,255])
         self.image = pygame.transform.scale(self.image,[self.w,self.h])
         self.color = color
         self.speed = speed
@@ -43,7 +43,7 @@ class Enemy:
         up = Vector2(0, -1)
         angleFromUp = up.angle_to(self.direction)
         # Rotate the player's image based on its direction
-        image_rot = pygame.transform.rotate(self.image, -angleFromUp)
+        image_rot = pygame.transform.rotate(self.image, -angleFromUp).convert_alpha()
         image_rect = image_rot.get_rect(center=self.pos)
         screen.blit(image_rot,image_rect)
 
