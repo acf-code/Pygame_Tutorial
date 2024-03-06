@@ -16,3 +16,4 @@ Use Reference Code:-
   - [Working with Sprite Sheet Code](https://github.com/acf-code/Pygame_Tutorial/blob/main/animations/spritesheet.py) 
   - [Animations with Sprite Sheet Code](https://github.com/acf-code/Pygame_Tutorial/blob/main/animations/animationwithspritesheet.py)
 - Class 11: [Code](https://github.com/acf-code/Pygame_Tutorial/tree/main/followingAI)
+- Class 12: [Code](https://github.com/acf-code/Pygame_Tutorial/tree/main/followingAI)
