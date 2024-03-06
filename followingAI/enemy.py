@@ -29,12 +29,7 @@ class Enemy:
         distanceFromPlayer = self.pos.distance_to(distantPoint)
         if distanceFromPlayer <= self.follow_distance and distanceFromPlayer >= self.stop_distance:
             self.follow_distance = self.follow_distance_found
-            steps = 100
-            for i in range(steps):
-                pygame.draw.line(screen,[255,0,0],self.pos,self.pos + self.direction.rotate(pygame.math.lerp(0,self.viewAngle,i/steps))*self.follow_distance)
-            for i in range(steps):
-                pygame.draw.line(screen,[255,0,0],self.pos,self.pos + self.direction.rotate(-pygame.math.lerp(0,self.viewAngle,i/steps))*self.follow_distance)
-            self.following = self.checkViewAngle(distanceVector)
+            self.following = self.checkViewAngle(distanceVector,screen)
         else:
             self.follow_distance = self.follow_distance_not_found
             steps = 100
@@ -46,12 +41,25 @@ class Enemy:
             self.following = False
 
 
-    def checkViewAngle(self,distanceVector):
-        playerAngle = self.direction.angle_to(distanceVector)
-        if playerAngle < self.viewAngle and playerAngle > -self.viewAngle:
+    def checkViewAngle(self,distanceVector,screen):
+        steps = 100
+        for i in range(steps):
+            pygame.draw.line(screen,[0,255,0],self.pos,self.pos + self.direction.rotate(pygame.math.lerp(0,self.viewAngle,i/steps))*self.follow_distance)
+        for i in range(steps):
+            pygame.draw.line(screen,[0,255,0],self.pos,self.pos + self.direction.rotate(-pygame.math.lerp(0,self.viewAngle,i/steps))*self.follow_distance)
+        angleToPlayer = self.direction.angle_to(distanceVector)
+        if angleToPlayer > 0:
+            angleToPlayer -= 180
+        elif angleToPlayer < 0:
+            angleToPlayer += 180
+        print(angleToPlayer)
+        if angleToPlayer > -self.viewAngle and angleToPlayer < self.viewAngle:
+            pygame.draw.line(screen,[255,0,0],self.pos,self.pos + self.direction.rotate(angleToPlayer)*self.follow_distance)
             return True
         else:
+            pygame.draw.line(screen,[255,255,0],self.pos,self.pos + self.direction.rotate(angleToPlayer)*self.follow_distance)
             return False
+
 
 
 
