@@ -16,15 +16,43 @@ class Enemy:
         self.vel = Vector2(0)
         self.direction = Vector2(0,-1)
         self.following = False
-        self.follow_distance = 250
-        self.stop_distance = 50
+        self.follow_distance_not_found = 50
+        self.follow_distance_found = 150
+        self.follow_distance = self.follow_distance_not_found
+        self.stop_distance = 10
+        self.viewAngle = 45
 
-    def findPlayer(self,player):
-        distanceFromPlayer = self.pos.distance_to(player.pos)
+    def findPlayer(self,player,screen):
+        distanceVector = self.pos - player.pos
+        distanceVector = distanceVector.normalize() * player.detectRadius
+        distantPoint = distanceVector + player.pos
+        distanceFromPlayer = self.pos.distance_to(distantPoint)
         if distanceFromPlayer <= self.follow_distance and distanceFromPlayer >= self.stop_distance:
-            self.following = True
+            self.follow_distance = self.follow_distance_found
+            steps = 100
+            for i in range(steps):
+                pygame.draw.line(screen,[255,0,0],self.pos,self.pos + self.direction.rotate(pygame.math.lerp(0,self.viewAngle,i/steps))*self.follow_distance)
+            for i in range(steps):
+                pygame.draw.line(screen,[255,0,0],self.pos,self.pos + self.direction.rotate(-pygame.math.lerp(0,self.viewAngle,i/steps))*self.follow_distance)
+            self.following = self.checkViewAngle(distanceVector)
         else:
+            self.follow_distance = self.follow_distance_not_found
+            steps = 100
+            for i in range(steps):
+                pygame.draw.line(screen,[255,0,0],self.pos,self.pos + self.direction.rotate(pygame.math.lerp(0,self.viewAngle,i/steps))*self.follow_distance)
+            for i in range(steps):
+                pygame.draw.line(screen,[255,0,0],self.pos,self.pos + self.direction.rotate(-pygame.math.lerp(0,self.viewAngle,i/steps))*self.follow_distance)
+            #pygame.draw.line(screen,[0,255,0],self.pos,self.pos + self.direction.rotate(self.viewAngle)*self.follow_distance)
             self.following = False
+
+
+    def checkViewAngle(self,distanceVector):
+        playerAngle = self.direction.angle_to(distanceVector)
+        if playerAngle < self.viewAngle and playerAngle > -self.viewAngle:
+            return True
+        else:
+            return False
+
 
 
     def move(self,player):
@@ -47,7 +75,7 @@ class Enemy:
         image_rect = image_rot.get_rect(center=self.pos)
         screen.blit(image_rot,image_rect)
 
-    def update(self,player):
-        self.findPlayer(player)
+    def update(self,player,screen):
+        self.findPlayer(player,screen)
         self.move(player)
 

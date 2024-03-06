@@ -10,6 +10,7 @@ class Player:
         self.speed = speed
         self.color = color
         self.rect = pygame.Rect(0,0,self.w,self.h)
+        self.detectRadius = self.w
         self.vel = Vector2(0)
 
     def move(self):
@@ -32,7 +33,8 @@ class Player:
         self.rect.center = self.pos
 
     def render(self,screen):
-        pygame.draw.rect(screen,self.color,self.rect)
+        #pygame.draw.rect(screen,self.color,self.rect)
+        pygame.draw.circle(screen,self.color,self.pos,self.detectRadius)
 
     def update(self):
         self.move()

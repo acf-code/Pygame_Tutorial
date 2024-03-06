@@ -19,7 +19,7 @@ BLACK = [0,0,0]
 WHITE = [255,255,255]
 RED = [255,0,0]
 
-player = Player(WIDTH/2,HEIGHT/2,50,50,5,RED)
+player = Player(WIDTH/2,HEIGHT/2,25,25,5,RED)
 
 e_h = 30
 e_w = 30
@@ -35,11 +35,11 @@ while isRunning:
             isRunning = False
 
     screen.blit(bckgdImg,[0,0])
+    for enemy in enemies:
+        enemy.update(player,screen)
+        enemy.render(screen)
     player.update()
     player.render(screen)
-    for enemy in enemies:
-        enemy.update(player)
-        enemy.render(screen)
     pygame.display.update()
     clock.tick(fps)
 
