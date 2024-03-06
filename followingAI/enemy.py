@@ -42,7 +42,7 @@ class Enemy:
 
 
     def checkViewAngle(self,distanceVector,screen):
-        steps = 100
+        steps = 1000
         for i in range(steps):
             pygame.draw.line(screen,[0,255,0],self.pos,self.pos + self.direction.rotate(pygame.math.lerp(0,self.viewAngle,i/steps))*self.follow_distance)
         for i in range(steps):
