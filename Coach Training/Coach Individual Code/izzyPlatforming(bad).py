@@ -106,7 +106,7 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_w] or keys[pygame.K_UP]:
             self.physicObject.jumping = True
 
-    def update(self,dt,plaforms):
+    def update(self,dt,platforms):
         self.getInput()
         if self.state == "IDLE":
             self.physicObject.update(0,dt,platforms)
