@@ -12,11 +12,11 @@ stargroup = []
 numStars = 750
 radius = [lerp(.5,4,(randint(0,1000))/1000) for _ in range(numStars)]
 radius.sort()
-print(radius)
+color = pygame.Vector3(randint(0,255),randint(0,255),randint(0,255))
 for i in range(numStars):
     x = randint(5, WIDTH-5)
     y = randint(5, HEIGHT-5)
-    stargroup.append(Star(x, y,radius[i]))
+    stargroup.append(Star(x, y,radius[i],color))
 
 dino = pygame.sprite.GroupSingle(Ship(WIDTH/2,HEIGHT/2))
 while True:
