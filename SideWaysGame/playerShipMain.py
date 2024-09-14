@@ -12,7 +12,7 @@ stargroup = []
 numStars = 750
 radius = [lerp(.5,4,(randint(0,1000))/1000) for _ in range(numStars)]
 radius.sort()
-color = pygame.Vector3(randint(0,255),randint(0,255),randint(0,255))
+color = pygame.Vector3(0,255,0)
 for i in range(numStars):
     x = randint(5, WIDTH-5)
     y = randint(5, HEIGHT-5)

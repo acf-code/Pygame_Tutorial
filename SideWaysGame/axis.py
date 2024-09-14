@@ -55,8 +55,6 @@ class Axis:
         draw_triangle([0, 0, 0], self.vectors[0] * self.length, self.vectors[2] * self.length, pygame.Color("green"))
         draw_triangle([0, 0, 0], self.vectors[1] * self.length, self.vectors[2] * self.length, pygame.Color("blue"))
 
-        # Side faces: You can add more triangles here if needed
-
 pygame.init()
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 clock = pygame.time.Clock()

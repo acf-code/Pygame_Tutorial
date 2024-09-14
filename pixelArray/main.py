@@ -6,9 +6,16 @@ screen = pygame.display.set_mode([500,500])
 clock = pygame.time.Clock()
 fps = 60
 
-platform1 = pygame.Surface([500,50])
-platform1rect = platform1.get_rect(bottomright = screen.get_size())
-platform1.fill([0,0,255])
+class Platform:
+    def __init__(self,w,h,pos):
+        self.surface = pygame.Surface([w,h])
+        self.rect = self.surface.get_rect(bottomright = pos)
+        self.fill([0,0,255])
+
+
+platforms = [Platform(500,100,screen.get_size())]
+
+
 
 player = pygame.Surface([32,32])
 player.fill([255,0,0])
@@ -17,6 +24,10 @@ playerRect = player.get_rect(center = pos)
 gravity = 10
 vel = Vector2(0)
 delta = Vector2(0)
+
+def platformCollision(collisionRect,platforms):
+    for p in platforms:
+
 
 
 while True:
