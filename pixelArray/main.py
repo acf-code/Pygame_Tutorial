@@ -2,7 +2,7 @@ import pygame
 from pygame.math import Vector2
 import math
 pygame.init()
-screen = pygame.display.set_mode([500,500])
+screen = pygame.display.set_mode([960,640])
 clock = pygame.time.Clock()
 fps = 60
 
@@ -17,9 +17,8 @@ delta = Vector2(0)
 
 s = pygame.Surface([500,500])
 pixelArray = pygame.PixelArray(s)
-
-
-
+pixelArray[250,250] = (255,255,0)
+pixelArray = pixelArray.close()
 
 
 while True:
@@ -29,5 +28,5 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
     screen.fill(pygame.Color("black"))
-    #screen.blit(player,playerRect)
+    screen.blit(s,[0,0])
     pygame.display.update()
