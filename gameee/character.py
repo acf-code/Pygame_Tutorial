@@ -15,6 +15,9 @@ class Body:
         self.rShoulderJoint = self.pos + self.right*self.size[0]//2
         self.lShoulderJoint = self.pos - self.right*self.size[0]//2
 
+    def getAxis(self):
+        return [self.up,self.right,self.forward]
+
     def render(self,screen):
         leftJoint = Vector2(self.lShoulderJoint.x,self.lShoulderJoint.y)
         rightJoint = Vector2(self.rShoulderJoint.x,self.rShoulderJoint.y)
@@ -48,6 +51,7 @@ if __name__ == "__main__":
     rot = 0
 
 
+
     while True:
         pygame.display.set_caption(str(clock.get_fps()))
         events = pygame.event.get()
@@ -64,6 +68,7 @@ if __name__ == "__main__":
         screen.fill("black")
         body.render(screen)
         body.update()
+        print(body.getAxis())
         body.up.rotate_ip(rot*dt/1000,[0,0,1])
         dt = clock.tick(fps)
         pygame.display.flip()
