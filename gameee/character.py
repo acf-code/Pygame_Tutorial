@@ -31,6 +31,9 @@ class Body:
         #self.rotateToMouse()
         self.updateJoints()
 
+class Bone:
+    pass
+
 
 if __name__ == "__main__":
     pygame.init()
