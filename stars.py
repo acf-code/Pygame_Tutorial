@@ -21,7 +21,7 @@ while True:
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
     keys = pygame.key.get_pressed()
-    screen.fill([0,0,0])
+    screen.fill([255,255,255])
     pygame.display.update()
     clock.tick(fps)
 
