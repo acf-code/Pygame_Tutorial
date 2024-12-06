@@ -28,7 +28,7 @@ for i in dino_run_right:
     
 
 aniTimer = 0
-aniFlip = .1
+aniFlip = 8/30
 frame = 0
 
 state = "idle"
