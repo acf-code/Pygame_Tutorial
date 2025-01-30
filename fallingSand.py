@@ -6,7 +6,7 @@ WIDTH, HEIGHT=800, 600
 screen=pygame.display.set_mode([WIDTH, HEIGHT])
 clock=pygame.time.Clock()
 fps=60
-size=10
+size=5
 rows=HEIGHT//size
 cols=WIDTH//size
 def createGrids(size,rows,cols):
