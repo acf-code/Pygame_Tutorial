@@ -6,7 +6,7 @@ WIDTH, HEIGHT=800, 600
 screen=pygame.display.set_mode([WIDTH, HEIGHT])
 clock=pygame.time.Clock()
 fps=60
-size=5
+size=25
 rows=HEIGHT//size
 cols=WIDTH//size
 def createGrids(size,rows,cols):
@@ -81,7 +81,7 @@ def updateGrids(grids):
                         newGrids[i][j]["value"]=1
                 else:
                     newGrids[i][j+1]["value"]=1
-                    newGrids[i][j]["value"]=0
+                    # newGrids[i][j]["value"]=0
     return newGrids
 while True:
     pygame.display.set_caption(str(clock.get_fps()))
