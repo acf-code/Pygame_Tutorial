@@ -1,98 +1,107 @@
 import pygame
 import random
+from pygame.math import Vector3
+import numpy as np
 
 pygame.init()
-WIDTH, HEIGHT=800, 600
-screen=pygame.display.set_mode([WIDTH, HEIGHT])
-clock=pygame.time.Clock()
-fps=60
-size=25
-rows=HEIGHT//size
-cols=WIDTH//size
-def createGrids(size,rows,cols):
-    grids=[]
-    for i in range(cols):
-        grids.append([])
-    for i in range(cols):
-        for j in range(rows):
-            grid={
-                 "pos":[i*size, j*size],
-                "value":0
-            }
-            grid["rect"]=pygame.Rect(grid["pos"][0],grid["pos"][1],size,size)
+WIDTH, HEIGHT = 150,150
+screen = pygame.display.set_mode([WIDTH, HEIGHT])
+clock = pygame.time.Clock()
+fps = 60
+size = 1
+rows = HEIGHT // size
+cols = WIDTH // size
+colorWeight = 0
+step = 0.01
 
-            grids[i].append(grid)
-    return grids
-grids=createGrids(size, rows, cols)
-def drawGrids(grids):
+# Use NumPy for grid storage
+grid = np.zeros((cols, rows), dtype=int)
+colors = np.full((cols, rows, 3), [255, 255, 255], dtype=int)
+
+def drawGrids():
     for i in range(cols):
         for j in range(rows):
-            g = grids[i][j]
-            if g["value"]==1:
-                pygame.draw.rect(screen, "white",g["rect"])
-            if g["value"]==0:
-                pygame.draw.rect(screen,"black", g["rect"])
-def placeParticle(grids, mpos):
-    placeWidth=10
-    placeHeight=3
-    startCol=0
-    endCol=0
-    startRow=0
-    endRow=0
+            if grid[i, j] == 1:
+                pygame.draw.rect(screen, colors[i, j], (i * size, j * size, size, size))
+            else:
+                pygame.draw.rect(screen, "black", (i * size, j * size, size, size))
+
+def placeParticle(mpos):
+    global colorWeight, step
+    placeWidth = 10
+    placeHeight = 3
+
+    # Calculate grid indices from mouse position
+    i = mpos[0] // size
+    j = mpos[1] // size
+
+    # Define bounds for particle placement
+    startCol = max(0, i - placeWidth)
+    endCol = min(cols - 1, i + placeWidth)
+    startRow = max(0, j - placeHeight)
+    endRow = min(rows - 1, j + placeHeight)
+
+    # Calculate color
+    startColor = Vector3(255, 255, 255)
+    endColor = Vector3(255, 0, 0)
+    colorWeight += step
+    weight = colorWeight % 1
+    color = startColor.lerp(endColor, weight)
+
+    # Place particles
+    for i in range(startCol, endCol + 1):
+        for j in range(startRow, endRow + 1):
+            v = random.choice([0, 1])
+            grid[i, j] = v
+            if v == 1:
+                colors[i, j] = color
+
+def updateGrids():
+    newGrid = grid.copy()
+    newColors = colors.copy()
+
     for i in range(cols):
-        for j in range(rows):
-            g=grids[i][j]
-            if g["rect"].collidepoint(mpos):
-                if i-placeWidth<0:
-                    startCol=0
-                else:
-                    startCol=i-placeWidth
-                if i+placeWidth>cols-1:
-                    endCol=cols-1
-                else:
-                    endCol=i+placeWidth
-                if j - placeHeight < 0:
-                    startRow= 0
-                else:
-                    startRow = j - placeHeight
-                if j + placeHeight > rows- 1:
-                    endRow = rows- 1
-                else:
-                    endRow = j + placeHeight
-                for i in range(startCol, endCol):
-                    for j in range(startRow, endRow):
-                        grids[i][j]["value"]=random.choice([0,1])
-def updateGrids(grids):
-    newGrids=createGrids(size,rows,cols)
-    for i in range(cols):
-        for j in range(rows):
-            g=grids[i][j]
-            if g["value"]==1:
-                if j+1>rows-1:
-                    newGrids[i][j]["value"]=1
-                elif grids[i][j+1]["value"]==1:
-                    d=random.choice([-1,1])
-                    if i+d>0 and i+d<cols-1:
-                        if grids[i+d][j+1]["value"]==0:
-                            newGrids[i+d][j+1]["value"]=1
-                        else:
-                            newGrids[i][j]["value"]=1
+        for j in range(rows - 1, -1, -1):  # Iterate from bottom to top
+            if grid[i, j] == 1:
+                if j + 1 >= rows:  # Particle at the bottom
+                    newGrid[i, j] = 1
+                    newColors[i, j] = colors[i, j]
+                elif grid[i, j + 1] == 0:  # Move down
+                    newGrid[i, j + 1] = 1
+                    newColors[i, j + 1] = colors[i, j]
+                    newGrid[i, j] = 0
+                else:  # Check diagonals
+                    d = random.choice([-1, 1])
+                    if 0 <= i + d < cols and grid[i + d, j + 1] == 0:
+                        newGrid[i + d, j + 1] = 1
+                        newColors[i + d, j + 1] = colors[i, j]
+                        newGrid[i, j] = 0
                     else:
-                        newGrids[i][j]["value"]=1
-                else:
-                    newGrids[i][j+1]["value"]=1
-                    # newGrids[i][j]["value"]=0
-    return newGrids
-while True:
+                        newGrid[i, j] = 1
+                        newColors[i, j] = colors[i, j]
+
+    return newGrid, newColors
+
+
+# Main loop
+running = True
+while running:
     pygame.display.set_caption(str(clock.get_fps()))
-    events=pygame.event.get()
-    for event in events:
-        if event.type==pygame.QUIT:
-            pygame.quit()
-        if event.type==pygame.MOUSEBUTTONDOWN:
-            placeParticle(grids, event.pos)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        # if event.type == pygame.MOUSEBUTTONDOWN:
+        #     placeParticle(event.pos)
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                running = False
+
     screen.fill("black")
-    drawGrids(grids)
-    grids=updateGrids(grids)
+    if pygame.mouse.get_pressed()[0]:
+        placeParticle(event.pos)
+    drawGrids()
+    grid, colors = updateGrids()
     pygame.display.update()
     clock.tick(fps)
+
+pygame.quit()

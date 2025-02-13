@@ -19,12 +19,12 @@ class Star:
         #self.color = self.blue.lerp(self.red,(maxRadius-self.radius)/maxRadius)
         self.color = self.oldColor.lerp(self.newColor,(self.maxSpeed-self.speed)/self.maxSpeed)
     def render(self, screen):
-        pygame.draw.circle(screen, self.color, self.pos, self.radius)
+        # pygame.draw.circle(screen, self.color, self.pos, self.radius)
         # pygame.draw.line(screen,self.color,self.pos,[self.pos[0],HEIGHT],int(self.radius)*5)
-        # surface = pygame.Surface([self.radius*20,HEIGHT-self.radius])
-        # rect = surface.get_rect(center = [self.pos[0],self.pos[1]-self.radius])
-        # surface.fill(self.color)
-        # screen.blit(surface,rect)
+        surface = pygame.Surface([self.radius*20,HEIGHT-self.radius])
+        rect = surface.get_rect(center = [self.pos[0],self.pos[1]-self.radius])
+        surface.fill(self.color)
+        screen.blit(surface,rect)
     def update(self, screen, dt,player):
         distanceFromCenter = abs(self.pos[0] - WIDTH/2)
         #self.color = self.oldColor.lerp(self.newColor,(WIDTH/2-distanceFromCenter)/(WIDTH/2))

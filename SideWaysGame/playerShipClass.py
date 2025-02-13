@@ -34,7 +34,8 @@ class Ship(pygame.sprite.Sprite):
         if vel[1] < self.maxFallingSpeed:
             self.vel[1]=vel[1]
         else:
-            self.vel[1]= self.maxFallingSpeed 
+            #self.vel[1]= self.maxFallingSpeed 
+            self.vel[1]=vel[1]
         self.pos += self.vel
         self.rect.center = self.pos
         if self.pos[1] > HEIGHT:

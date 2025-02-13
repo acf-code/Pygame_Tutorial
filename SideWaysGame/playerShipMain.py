@@ -5,11 +5,11 @@ from playerShipClass import Ship
 from pygame.math import lerp
 from utils import *
 pygame.init()
-screen = pygame.display.set_mode([WIDTH,HEIGHT])
+screen = pygame.display.set_mode([WIDTH,HEIGHT],vsync=1)
 clock = pygame.time.Clock()
 fps = 60
 stargroup = []
-numStars = 750
+numStars = 50
 radius = [lerp(.5,4,(randint(0,1000))/1000) for _ in range(numStars)]
 radius.sort()
 color = pygame.Vector3(0,255,0)
