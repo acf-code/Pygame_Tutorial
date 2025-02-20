@@ -4,11 +4,11 @@ from pygame.math import Vector3
 import numpy as np
 
 pygame.init()
-WIDTH, HEIGHT = 150,150
+WIDTH, HEIGHT = 300,500
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 clock = pygame.time.Clock()
 fps = 60
-size = 1
+size = 3
 rows = HEIGHT // size
 cols = WIDTH // size
 colorWeight = 0
@@ -42,8 +42,8 @@ def placeParticle(mpos):
     endRow = min(rows - 1, j + placeHeight)
 
     # Calculate color
-    startColor = Vector3(255, 255, 255)
-    endColor = Vector3(255, 0, 0)
+    startColor = Vector3(255, 0, 0)
+    endColor = Vector3(255, 0, 255)
     colorWeight += step
     weight = colorWeight % 1
     color = startColor.lerp(endColor, weight)

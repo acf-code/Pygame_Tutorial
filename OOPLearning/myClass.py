@@ -56,6 +56,9 @@ class Player:
         self.rect = self.image.get_rect(center = self.pos)
         self.speed = 2
         self.vel = Vector2(0,0) #self.vel[0] is how fast we are moving in the x direction, and self.vel[1] is how fast we are moving in the y direction
+        self.sword = Sword()
+        self.attack = False
+        self.facing = "up"
 
     #methods describe what an object does
     #fore example in the class Dog, a dog might bark, run, or play
@@ -63,12 +66,14 @@ class Player:
     def draw(self,screen):
         self.image.fill(self.color)
         screen.blit(self.image,self.rect)
+        if self.attack:
+            self.sword.draw(screen)
 
     def move(self):
-        self.vel = Vector2(0,0)
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            self.vel[0] = -self.speed
+        self.vel = Vector2(0,0)#reseting the velocity
+        keys = pygame.key.get_pressed()#this gets a list of all the keys on your keyboard that are being pressed down
+        if keys[pygame.K_LEFT]:#if the left arrow key gets pressed
+            self.vel[0] = -self.speed#setting the x velocity to be negative speed
         if keys[pygame.K_RIGHT]:
             self.vel[0] = self.speed
         if keys[pygame.K_DOWN]:
@@ -76,14 +81,44 @@ class Player:
         if keys[pygame.K_UP]:
             self.vel[1] = -self.speed
         if self.vel != Vector2(0,0):
-            self.vel.clamp_magnitude_ip(self.speed)
-        self.pos += self.vel
-        self.rect.center = self.pos
+            self.vel.clamp_magnitude_ip(self.speed)#making sure it stays the same speed for all directions
+        self.pos += self.vel#adding the velocity to the pos
+        self.rect.center = self.pos#setting the center of the rect to be the pos
+
+
+
+    def update(self):#this method will be called every frame of our game
+        self.move()
+        #check if the mouse button is being pressed down, if so attack 
+        self.getInputs()#this function will see if any inputs have been give to do an action
+        #print(self.attack)
+        if self.attack:
+            self.sword.updatePos(self)
+
+
+    def getInputs(self):
+        self.attack = pygame.mouse.get_pressed()[0]
 
 class Sword:
     def __init__(self):
-        self.image = pygame.image.load("sword.png")
+        self.image = pygame.image.load("OOPLearning/sword.png")
         #Can you make other instance variables 
+        self.pos = Vector2(0,0)
+        self.rect = self.image.get_rect()
+        self.damage = 1
+        self.offset = 5 #this is the offset between the player and the sword
+
+    def draw(self,screen):#draw the sword on the screen
+        screen.blit(self.image,self.rect)
+
+    #next we need to make a method that updates the position of the sword based on the player
+    def updatePos(self,player):
+        #will have the sword appear at the tope of the player
+        topPos = Vector2(player.rect.midtop)
+        #will set the bottom of the sword to be at the top of the player plus some offset
+        self.rect.midbottom = topPos
+        self.rect.bottom -= self.offset
+        self.pos = self.rect.center
 
 
 

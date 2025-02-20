@@ -19,7 +19,7 @@ while True:
             pygame.quit()
 
 
-    player.move()
+    player.update()
     screen.fill("white")
     player.draw(screen)
     clock.tick(fps)
