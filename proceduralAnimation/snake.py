@@ -1,13 +1,15 @@
 import pygame
 from pygame.math import Vector2
+from pygame.gfxdraw import filled_polygon
 
 class Snake:
     def __init__(self):
         self.headPos = Vector2(250,250)
-        self.headSize = 5
+        self.headSize = 25
         self.color = "cyan"
-        self.segmentLength = 32
-        self.numOfJoints = 10
+        self.segmentLength = 5
+        self.numOfJoints = 50
+        self.width = 25
         self.body = self.createBody() 
 
     def update(self):
@@ -22,13 +24,38 @@ class Snake:
         #draw snake head
         pygame.draw.circle(screen,self.color,self.headPos,self.headSize)
         #draw snake body
+        points = []
         for i in range(self.numOfJoints):
             if i == 0:
-                pygame.draw.circle(screen,self.color,self.body[i],self.headSize)
-                pygame.draw.line(screen,self.color,self.headPos,self.body[i])
+                direction = self.body[i] - self.headPos
+                direction.normalize_ip()
+                normal = Vector2(-direction.y,direction.x)
+                pos = self.headPos + normal*self.width
+                points.append(pos)
             else:
-                pygame.draw.circle(screen,self.color,self.body[i],self.headSize)
-                pygame.draw.line(screen,self.color,self.body[i-1],self.body[i])
+                direction = self.body[i] - self.body[i-1]
+                direction.normalize_ip()
+                normal = Vector2(-direction.y,direction.x)
+                pos = self.body[i] + normal*self.width
+                points.append(pos)
+        reversePoints = []
+        for i in range(self.numOfJoints):
+            if i == 0:
+                direction = self.body[i] - self.headPos
+                direction.normalize_ip()
+                normal = -1 *Vector2(-direction.y,direction.x)
+                pos = self.headPos + normal*self.width
+                reversePoints.append(pos)
+            else:
+                direction = self.body[i] - self.body[i-1]
+                direction.normalize_ip()
+                normal = -1 *Vector2(-direction.y,direction.x)
+                pos = self.body[i] + normal*self.width
+                reversePoints.append(pos)
+        reversePoints.reverse()
+        points.extend(reversePoints)
+        filled_polygon(screen,points,[0,0,255])
+            
 
     def createBody(self):
         body = []
