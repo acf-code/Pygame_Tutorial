@@ -65,7 +65,6 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
     
-    screen.fill(white)
-    updatePlayer(player)
+    screen.fill("white")
     pygame.display.update()
     clock.tick(fps)
