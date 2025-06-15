@@ -1,6 +1,7 @@
 import pygame
 from pygame.math import Vector2
 from thruster import Thruster
+from shooter import Shooter
 
 class Player:
     def __init__(self,startPos):
@@ -19,6 +20,7 @@ class Player:
         self.rect = self.image.get_rect(center = self.pos)
         self.hitBox = self.rect
         self.thruster = Thruster(30,[255,255,0],[255,0,0],700)
+        self.shooter = Shooter(self)
         self.maxLives = 3
         self.lives = self.maxLives
 
@@ -28,6 +30,7 @@ class Player:
         self.rotate(dt)
         self.checkBoundary()
         self.thruster.update(dt)
+        self.shooter.update(dt)
         self.rect.center = self.pos
 
     def draw(self,screen):
@@ -40,6 +43,7 @@ class Player:
         self.imageRot.set_colorkey("green")
         self.imageRot.blit(imageRot,[0,0])
         #pygame.draw.rect(screen,"yellow",imageRotRect)
+        self.shooter.draw(screen)
         screen.blit(self.imageRot,imageRotRect)
         self.thruster.draw(screen)
         self.hitBox = imageRotRect

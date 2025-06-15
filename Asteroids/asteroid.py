@@ -41,10 +41,12 @@ class Asteroid:
     
     def update(self,dt,player,asteroids):
         self.playerCollide(player)
+        self.bulletCollide(player)
         if self.collided:
             if self.type != "small":
                 self.spawn(asteroids)
             self.destroyed = True
+        self.move(dt)
         self.rect.center = self.pos
         self.hitbox.center = self.pos
 
@@ -78,4 +80,26 @@ class Asteroid:
         for i in range(2):
             pos = self.pos + Vector2(-1,0).rotate(randint(0,360))*distance
             asteroids.append(Asteroid(t,pos))
-        
+
+    def bulletCollide(self,player):
+        bullets = player.shooter.bullets
+        for bullet in bullets:
+            if self.rect.colliderect(bullet.rect):
+                self.collided = True
+                bullet.destroyed = True
+
+    def move(self,dt):
+        vel = self.dir*self.speed
+        self.pos += vel*dt
+        if self.rect.right < 0:
+            self.rect.left = 800
+            self.pos = self.rect.center
+        if self.rect.left > 800:
+            self.rect.right = 0
+            self.pos = self.rect.center
+        if self.rect.bottom < 0:
+            self.rect.top = 600
+            self.pos = self.rect.center
+        if self.rect.top > 600:
+            self.rect.bottom = 0
+            self.pos = self.rect.center
