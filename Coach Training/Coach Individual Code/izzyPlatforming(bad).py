@@ -70,6 +70,7 @@ class PhysicObject:
             self.dy = self.vel[1]
 
     def update(self,x_acc,dt,platforms):
+        self.grounded = False  
         self.move_x(x_acc,dt)
         self.move_y(dt)
         self.platformCollision(platforms)
@@ -83,7 +84,7 @@ class PhysicObject:
             self.dy = 0      
         self.rect.centerx += self.dx
         self.rect.centery += self.dy      
-        self.grounded = False  
+        
 
 class Player(pygame.sprite.Sprite):
     def __init__(self,x,y,w,h):
