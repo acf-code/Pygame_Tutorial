@@ -28,8 +28,8 @@ def gameloop():
         star = stars.Star(position, stars.STAR_MIN_RADIUS, stars.STAR_MAX_RADIUS)
         all_stars.append(star)
     ship = player.Player([size[0]/2,size[1]/2],"space_game_z/ship.png",[128,64])
-    for i in range(5):
-        asteroids.append(objects.Asteroid(1,(125,125,125),objects.Tools.random_hexagon(size[0]/8,size[1]/8)))
+    # for i in range(5):
+    #     asteroids.append(objects.Asteroid(1,(125,125,125),objects.Tools.random_hexagon(size[0]/8,size[1]/8)))
 
     while isRunning == True:
         events = pygame.event.get()

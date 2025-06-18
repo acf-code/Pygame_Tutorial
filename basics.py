@@ -30,7 +30,7 @@ while isRunning == True:
         if event.type == pygame.QUIT:
             isRunning = False
             pygame.quit()
-    color = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
+    #color = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
     if rect_1.x > mouse_pos[0]:
         rect_1.x -= 1
     if rect_1.x < mouse_pos[0]:

@@ -28,10 +28,12 @@ for i in dino_run_right:
     
 
 aniTimer = 0
-aniFlip = 100
+aniFlip = 8/30
 frame = 0
 
 state = "idle"
+
+dt = 0
 
 isRunning = True
 while isRunning:
@@ -50,7 +52,6 @@ while isRunning:
         if event.type == pygame.KEYUP:
             state = "idle"
             frame = 0
-    dt = clock.get_time()
     if aniTimer > aniFlip:
         frame += 1
         aniTimer = 0
@@ -75,4 +76,4 @@ while isRunning:
         screen.blit(dino_run_left[frame],[50,50])
 
     pygame.display.update()
-    clock.tick(fps)
+    dt = clock.tick(fps)/1000

@@ -1,8 +1,2 @@
-car = {
-    "maker" : "hyundai",
-    "model" : "ionic",
-    "year" :  2022,
-    "color" : [255,0,0] #red
-}
-
-print(car["model"])
+# Syntax: {key: value, key: value}
+player = {"name": "Alex", "score": 100, "lives": 3}
