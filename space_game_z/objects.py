@@ -11,10 +11,18 @@ class Tools:
 
     @staticmethod
     def projectTo(t_x,t_y,p_z = SPAWN_Z,screen_w = SCREEN_WIDTH, screen_h = SCREEN_HEIGHT):
-        p_x = (screen_w*((t_x)/(screen_w + p_z)))
-        p_y = (screen_h*((t_y)/(screen_h + p_z)))
-        p_cx = (screen_w*((screen_w/2)/(screen_w + p_z)))
-        p_cy = (screen_h*((screen_h/2)/(screen_h + p_z)))
+        if screen_w + p_z == 0:
+            p_x = 0
+            p_cx = 0
+        else:
+            p_x = (screen_w*((t_x)/(screen_w + p_z)))
+            p_cx = (screen_w*((screen_w/2)/(screen_w + p_z)))
+        if screen_h + p_z == 0:
+            p_y = 0
+            p_cy = 0
+        else:
+            p_y = (screen_h*((t_y)/(screen_h + p_z)))
+            p_cy = (screen_h*((screen_h/2)/(screen_h + p_z)))
         center = [screen_w/2,screen_h/2]
         offset= [center[0]- p_cx,center[1]- p_cy]
         p_x += offset[0]
@@ -88,15 +96,16 @@ class Asteroid:
         self.destroyed = False
         self.pos = [random.randint(0,800),random.randint(0,600)]
         self.new_pos = self.pos
+        
 
     def render(self,screen):
-        pygame.draw.polygon(screen,self.color,self.p_verticies)
+        pygame.draw.rect(screen,"red",)
+        #pygame.draw.polygon(screen,self.color,self.p_verticies)
         #pygame.draw.circle(screen,self.color,self.new_pos,10)
 
     def move(self):
-        #self.z -= self.speed
-        pass
-        #self.new_pos = Tools.projectTo(self.pos[0],self.pos[1],self.z)
+        self.z -= self.speed
+        self.new_pos = Tools.projectTo(self.pos[0],self.pos[1],self.z)
 
     def destroy(self):
         if self.z < 0:

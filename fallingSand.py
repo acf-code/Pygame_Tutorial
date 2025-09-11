@@ -4,7 +4,7 @@ from pygame.math import Vector3
 import numpy as np
 
 pygame.init()
-WIDTH, HEIGHT = 150,300
+WIDTH, HEIGHT = 200,400
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 clock = pygame.time.Clock()
 fps = 60

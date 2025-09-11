@@ -56,7 +56,7 @@ def drawSirpinskiPoints(screen,points,startColor,endColor):
         pygame.draw.circle(screen,color,p,1)
 
         
-    
+speed = 5
 
 isRunning = True
 while isRunning:
@@ -67,9 +67,15 @@ while isRunning:
             exit(1)
     
     screen.fill("black")
-    drawHexagon(screen,hexagonPoints,"white")
+    # drawHexagon(screen,hexagonPoints,"white")
     drawSirpinskiPoints(screen,sirpinskiPoints,[255,0,0],[0,0,255])
     for point in sirpinskiPoints:
-        point.x += .2 
+        point.x += speed
+        if point.x > 800:
+            point.x = 0
+            #speed = -speed
+        if point.x < 0:
+            point.x = 800
+            #speed = -speed
     pygame.display.update()
     dt = clock.tick(fps)/1000

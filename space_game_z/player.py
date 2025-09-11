@@ -82,9 +82,11 @@ class Player:
         ret_pos = Tools.projectTo(self.pos[0],self.pos[1],p_z=r_z)
         ret_radius = 10
         ret_trail = []
+        i = 0
         while r_z < (Tools.SPAWN_Z*(0.25)):
             ret_trail.append(Tools.projectTo(self.pos[0],self.pos[1],p_z=r_z))
             r_z += 15
+            i += 1
         pygame.draw.circle(screen,(0,255,0),ret_pos,ret_radius,width = 1)
         trailing_r = 5
         for r in ret_trail:
@@ -111,14 +113,20 @@ class Player:
             self.time += 1
         
 
-            
-
-    def update(self,screen):
+    def update(self,screen,asteroids):
         self.reticle(screen,75)
         self.shoot(screen)
         self.render(screen)
         self.move()
-        print(len(self.lasers))
+        self.checkBulletCollision(asteroids)
+
+    def checkBulletCollision(self,asteroids):
+        for asteroid in asteroids:
+            for laser in self.lasers:
+                if asteroid.rect.collidepoint(laser.new_pos):
+                    asteroid.destroyed = True
+                    laser.destroyed = True
+                    print("asteroid hit")
         
 
         
